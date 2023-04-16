@@ -2,8 +2,11 @@
 
 int main(void)
 {
+	char *buffer = NULL;
+	char *args[max_args];
+	size_t buf_size;
 	pid_t pid;
-	int run_flag, num_args, num_chars;
+	int run_flag = 1, num_args, num_chars;
 
 	while (run_flag)
 	{
