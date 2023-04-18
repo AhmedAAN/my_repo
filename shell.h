@@ -14,5 +14,7 @@
 
 #define MAX_COMMAND_LENGTH 1000
 #define MAX_ARGUMENTS 100
+char **strtow(char *str, char *d);
+char **strtow2(char *str, char d);
 
 #endif
