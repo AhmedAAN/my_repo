@@ -16,5 +16,8 @@
 #define MAX_ARGUMENTS 100
 char **strtow(char *str, char *d);
 char **strtow2(char *str, char d);
+char *_strncat(char *dest, char *src, int n);
+char *_strncpy(char *dest, char *src, int n);
+char *_strchr(char *s, char c);
 
 #endif
