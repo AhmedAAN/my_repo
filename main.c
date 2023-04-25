@@ -15,7 +15,7 @@ int main(void)
 		/* read input from user */
 		num_chars = getline(&buffer, &buf_size, stdin);
 		if (num_chars == -1)
-			continue;
+			break;
 
 		/* make the command into tokens */
 		num_args = token_command(buffer, args);
@@ -24,7 +24,7 @@ int main(void)
 		if (strcmp(args[0], "exit"))
 		{
 			run_flag = 0;
-			continue;
+			break;
 		}
 
 		/* fork a new process to execute command */
@@ -37,7 +37,7 @@ int main(void)
 		else if (pid == 0)
 		{
 			/* child */
-			if (execve(args[0], args) == -1)
+			if (execvp(args[0], args) == -1)
 			{
 				printf("Command not found\n");
 				exit(1);
@@ -49,4 +49,7 @@ int main(void)
 			wait(NULL);
 		}
 	}
+	free(buffer);
+
+	return (0);
 }
