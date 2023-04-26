@@ -14,6 +14,12 @@
 
 #define MAX_COMMAND_LENGTH 1000
 #define MAX_ARGUMENTS 100
+
+int main(void);
+int token_command(char *buffer, char **args);
+char *search_path(char *filename);
+
+
 char **strtow(char *str, char *d);
 char **strtow2(char *str, char d);
 char *_strncat(char *dest, char *src, int n);
