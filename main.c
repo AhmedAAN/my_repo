@@ -6,10 +6,10 @@
  */
 int main(void)
 {
-	char *args[MAX_ARGUMENTS], *filepath, *buffer = NULL, *envp[];
+	char *args[MAX_ARGUMENTS], *filepath, *buffer = NULL, *envp[1024];
 	size_t buf_size;
 	pid_t pid;
-	int run_flag = 1, num_args, num_chars;
+	int run_flag = 1, num_chars;
 
 	while (run_flag)
 	{
@@ -17,7 +17,7 @@ int main(void)
 		num_chars = getline(&buffer, &buf_size, stdin);
 		if (num_chars == -1)
 			break;
-		num_args = token_command(buffer, args);
+		token_command(buffer, args);
 		if (strcmp(args[0], "exit"))
 		{
 			run_flag = 0;
@@ -48,7 +48,7 @@ int main(void)
 		}
 		else if (pid == 0)
 		{
-			envp[] = { NULL };
+			envp[0] = NULL;
 			execve(filepath, args, envp);
 			printf("Error: command not found\n");
 			exit(1);

@@ -15,6 +15,8 @@
 #define MAX_COMMAND_LENGTH 1000
 #define MAX_ARGUMENTS 100
 
+extern char **environ;
+
 int main(void);
 int token_command(char *buffer, char **args);
 char *search_path(char *filename);
