@@ -20,6 +20,8 @@ extern char **environ;
 int main(void);
 int token_command(char *buffer, char **args);
 char *search_path(char *filename);
+void check_exit(char **args, int *run_flag);
+void check_env(char **args);
 
 
 char **strtow(char *str, char *d);
@@ -27,5 +29,6 @@ char **strtow2(char *str, char d);
 char *_strncat(char *dest, char *src, int n);
 char *_strncpy(char *dest, char *src, int n);
 char *_strchr(char *s, char c);
+int is_delim(char c, char *delim);
 
 #endif

@@ -1,4 +1,34 @@
 #include "shell.h"
+/**
+ * check_exit - check if the command is exit
+ * @args: the arguments array
+ * @run_flag: a pointer to the run flag
+ */
+void check_exit(char **args, int *run_flag)
+{
+	if (strcmp(args[0], "exit") == 0)
+	{
+		*run_flag = 0;
+	}
+}
+
+/**
+ * check_env - prints environment variables
+ * @args: the commands array
+ */
+void check_env(char **args)
+{
+	if (strcmp(args[0], "env") == 0)
+	{
+		char **env = environ;
+
+		while (*env != NULL)
+		{
+			printf("%s\n", *env);
+			env++;
+		}
+	}
+}
 
 /**
  * main - Entry point for the shell program
@@ -18,22 +48,8 @@ int main(void)
 		if (num_chars == -1)
 			break;
 		token_command(buffer, args);
-		if (strcmp(args[0], "exit"))
-		{
-			run_flag = 0;
-			break;
-		}
-		if (strcmp(args[0], "env") == 0)
-		{
-			char **env = environ;
-
-			while (*env != NULL)
-			{
-				printf("%s\n", *env);
-				env++;
-			}
-			break;
-		}
+		check_exit(args, &run_flag);
+		check_env(args);
 		filepath = search_path(args[0]);
 		if (filepath == NULL)
 		{
