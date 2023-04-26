@@ -6,7 +6,7 @@
  */
 int main(void)
 {
-	char *args[MAX_ARGUMENTS], *filepath, *buffer = NULL;
+	char *args[MAX_ARGUMENTS], *filepath, *buffer = NULL, *envp[];
 	size_t buf_size;
 	pid_t pid;
 	int run_flag = 1, num_args, num_chars;
@@ -48,11 +48,10 @@ int main(void)
 		}
 		else if (pid == 0)
 		{
-			if (execvp(args[0], args) == -1)
-			{
-				printf("Command not found\n");
-				exit(1);
-			}
+			envp[] = { NULL };
+			execve(filepath, args, envp);
+			printf("Error: command not found\n");
+			exit(1);
 		}
 		else
 		{
