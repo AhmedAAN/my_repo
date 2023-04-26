@@ -13,13 +13,13 @@ int token_command(char *buffer, char **args)
 	int num_args = 0;
 	char *arg;
 
-	arg = strtok(buffer, " \n");
+	arg = _strtok(buffer, " \n");
 
 	while (arg != NULL && num_args < MAX_ARGUMENTS - 1)
 	{
 		args[num_args] = arg;
 		num_args++;
-		arg = strtok(NULL, " \n");
+		arg = _strtok(NULL, " \n");
 	}
 
 	args[num_args] = NULL;

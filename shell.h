@@ -23,9 +23,7 @@ char *search_path(char *filename);
 void check_exit(char **args, int *run_flag);
 void check_env(char **args);
 
-
-char **strtow(char *str, char *d);
-char **strtow2(char *str, char d);
+char *_strtok(char *str, char *delim);
 char *_strncat(char *dest, char *src, int n);
 char *_strncpy(char *dest, char *src, int n);
 char *_strchr(char *s, char c);

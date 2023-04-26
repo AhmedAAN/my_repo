@@ -75,6 +75,5 @@ int main(void)
 		}
 	}
 	free(buffer);
-
 	return (0);
 }
