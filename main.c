@@ -6,8 +6,7 @@
  */
 int main(void)
 {
-	char *buffer = NULL;
-	char *args[MAX_ARGUMENTS];
+	char *args[MAX_ARGUMENTS], *filepath, *buffer = NULL;
 	size_t buf_size;
 	pid_t pid;
 	int run_flag = 1, num_args, num_chars;
@@ -22,6 +21,23 @@ int main(void)
 		if (strcmp(args[0], "exit"))
 		{
 			run_flag = 0;
+			break;
+		}
+		if (strcmp(args[0], "env") == 0)
+		{
+			char **env = environ;
+
+			while (*env != NULL)
+			{
+				printf("%s\n", *env);
+				env++;
+			}
+			break;
+		}
+		filepath = search_path(args[0]);
+		if (filepath == NULL)
+		{
+			printf("Error: command not found\n");
 			break;
 		}
 		pid = fork();
