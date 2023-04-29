@@ -1,52 +1,39 @@
 #include "shell.h"
+#include <limits.h>
 
 /**
  * search_path - Search for an executable file in the directories
  * specified by PATH
- * @filename: The name of the file to search for
+ * @command: The name of the file to search for
  * Return: A pointer to a string containing the path to the file,
  * or NULL if the file was not found
  */
-char *search_path(char *filename)
+char *search_path(char *command)
 {
-	char path[MAX_COMMAND_LENGTH];
-	int fd = open("/etc/environment", O_RDONLY);
-	int n;
-	char *newline, *path_value;
-	char *directories[MAX_ARGUMENTS];
-	int num_dirs;
-	int i;
+	char *path;
+	char *path_copy;
+	char *path_dir;
+	char *executable_path = NULL;
+	char *temp_path;
 
-	if (fd < 0)
-	{
-		return (NULL);
-	}
-	while ((n = read(fd, path, MAX_COMMAND_LENGTH)) > 0)
-	{
-		newline = strchr(path, '\n');
-		if (newline != NULL)
-		{
-			*newline = '\0';
-		}
-		if (strncmp(path, "PATH=", 5) == 0)
-		{
-			close(fd);
-			path_value = path + 5;
-			num_dirs = token_command(path_value, directories);
-			for (i = 0; i < num_dirs; i++)
-			{
-				char filepath[MAX_COMMAND_LENGTH];
+	path = getenv("PATH");
+	path_copy = strdup(path);
+	path_dir = strtok(path_copy, ":");
 
-				snprintf(filepath, MAX_COMMAND_LENGTH, "%s/%s", directories[i], filename);
-				if (access(filepath, X_OK) == 0)
-				{
-					return (strdup(filepath));
-				}
-			}
+	while (path_dir != NULL)
+	{
+		temp_path = malloc(PATH_MAX);
+		snprintf(temp_path, PATH_MAX, "%s/%s", path_dir, command);
+
+		if (access(temp_path, X_OK) == 0)
+		{
+			executable_path = temp_path;
 			break;
 		}
+		free(temp_path);
+		path_dir = strtok(NULL, ":");
 	}
-	close(fd);
 
-	return (NULL);
+	free(path_copy);
+	return (executable_path);
 }
