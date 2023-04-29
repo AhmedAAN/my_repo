@@ -20,8 +20,9 @@ extern char **environ;
 int main(void);
 int token_command(char *buffer, char **args);
 char *search_path(char *filename);
-void check_exit(char **args, int *run_flag);
+int check_exit(char **args, int *run_flag);
 void check_env(char **args);
+int check_filepath(char *filepath);
 
 char *_strtok(char *str, char *delim);
 char *_strncat(char *dest, char *src, int n);

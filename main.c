@@ -1,15 +1,32 @@
 #include "shell.h"
+
+/**
+ * check_filepath - check if file path in null
+ * @filepath: a pointer to the filepath
+ * Return: 1 if filepath is NULL and 0 of not
+ */
+int check_filepath(char *filepath)
+{
+	if (filepath == NULL)
+	{
+                        printf("Error: command not found\n");
+			return(1);
+	}
+	return (0);
+}
 /**
  * check_exit - check if the command is exit
  * @args: the arguments array
  * @run_flag: a pointer to the run flag
  */
-void check_exit(char **args, int *run_flag)
+int check_exit(char **args, int *run_flag)
 {
 	if (strcmp(args[0], "exit") == 0)
 	{
 		*run_flag = 0;
+		return (1);
 	}
+	return (0);
 }
 
 /**
@@ -48,14 +65,12 @@ int main(void)
 		if (num_chars == -1)
 			break;
 		token_command(buffer, args);
-		check_exit(args, &run_flag);
+		if (check_exit(args, &run_flag))
+			break;
 		check_env(args);
 		filepath = search_path(args[0]);
-		if (filepath == NULL)
-		{
-			printf("Error: command not found\n");
+		if (check_filepath(filepath))
 			break;
-		}
 		pid = fork();
 		if (pid < 0)
 		{
